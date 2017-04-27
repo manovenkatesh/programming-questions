@@ -1,0 +1,65 @@
+//given strings what is the largest palindrome that can be generated
+
+#include<iostream>
+#include<string>
+using namespace std;
+
+int main()
+{
+    int n,i,j,m;
+    int alpha[26]={0},num[10]={0};
+    cin>>n;
+    string s[n],req;
+    for(i=0;i<n;i++){
+        cin>>s[i];
+        for(j=0;j<s[i].length();j++){
+            if(isalpha(s[i][j])){
+                s[i][j]=tolower(s[i][j]);
+                alpha[s[i][j]-'a']++;
+            }
+            else{
+                m=s[i][j]-'0';
+                num[m]++;
+               // cout<<m<<endl<<num[m]<<endl;
+            }
+        }
+    }
+    //string req;
+    int numrem=0;
+    for(i=0;i<10;i++){
+        if(num[i]>1){
+            j=num[i]/2;
+            //cout<<j<<endl;
+            char c='0'+i;
+            req.append(j,c);
+            //cout<<req;
+        }
+        if(num[i]%2==1 && numrem==0){
+            numrem=i+1;
+        }
+    }
+    int alpharem=0;
+    for(i=0;i<26;i++){
+        if(alpha[i]>1){
+            j=alpha[i]/2;
+            char c='a'+i;
+            req.append(j,c);
+        }
+        if(alpha[i]%2==1 && alpharem==0 && numrem==0){
+            alpharem=i+1;
+        }
+    }
+    cout<<req;
+    if(numrem!=0){
+        cout<<numrem-1<<endl;
+    }
+    else{
+        char c='a'+alpharem-1;
+        cout<<c;
+    }
+    for(i=req.length()-1;i>=0;i--){
+        cout<<req[i];
+    }
+    return 0;
+}
+
