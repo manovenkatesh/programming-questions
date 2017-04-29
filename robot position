@@ -1,0 +1,93 @@
+//to determine the position of the robot after the movement inputs will be like N6 S7 E3
+
+
+#include <iostream>
+#include <stdio.h>
+#include <math.h>
+#include <string>
+ #include <bits/stdc++.h>
+using namespace std;
+
+int main(int argc,char **argv)
+{
+    int x,y,j,i,t=0,k=0,l=0,a[2];
+    char c;
+     string s,n;
+   // scanf("%d %d",&x,&y);
+    // cout<<x<<y;
+    getline(cin,n);
+    j=n.length()-1;
+    while(j>=0){
+        k=0;
+        int temp=0,count=0;
+        while(n[j]!=' ' && j>=0){
+            if(n[j]=='-'){
+                count++;
+                break;
+            }
+            int b=n[j]-'0';
+            temp=temp+b*(pow(10,k));
+            k++;
+            j--;
+        }
+        if(count>0){
+            temp=0-temp;
+            count=0;
+        }
+        a[l]=temp;
+        l++;
+        j--;
+    }
+    x=a[1];
+    y=a[0];
+    cout<<x<<y;
+   // c=getchar();
+   
+    getline(cin,s);
+    //cin>>s;
+    //cout<<s;
+    i=s.length()-1;
+  
+ //  cout<<i;
+    while(i>=0){
+        //cout<<"while"<<" ";
+            if(isalpha(s[i]))
+            {  // cout<<"isalp"<<" ";
+                if(s[i]=='E'){
+                x=x+t;
+                }
+                else if(s[i]=='W'){
+                x=x-t;
+                }
+                else if(s[i]=='N'){
+                y=y+t;
+                }
+                else if(s[i]=='S'){
+                y=y-t;
+            
+                }
+                t=0;
+               i--;
+            }
+            else{
+                int m=0;
+               // cout<<"num"<<" ";
+                while(s[i]!=' ' && i>=0 && (isalpha(s[i]))==0){
+                    int d=s[i]-'0';
+                    t=t+d*pow(10,m);
+                    i--;
+                    m++;
+                   // cout<<t;
+                    
+                }
+               
+            }
+       if(isalpha(s[i])==0){
+            i--;}
+    }
+        cout<<x<<" "<<y;
+        return 0;
+    }
+
+
+
