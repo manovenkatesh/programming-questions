@@ -1,0 +1,86 @@
+Arrays - Distinct Elements Count
+
+Two integer arrays of length L1 and L2 are passed as input. The program must print the sum of the distinct elements present in both the arrays.
+That is the program must print the count of integer values that are present in the first array but not in the second array plus the count of integer values that are present in the second array but not in the first array.
+
+Input Format:
+The first line will contain L1 and L2 separated by a space.
+The second line will contain the L1 integer values separated by a space.
+The third line will contain the L2 integer values separated by a space.
+
+Output Format:
+First line will contain the integer value which is the count of the distinct elements in both the arrays.
+
+Boundary Conditions:
+1 <= L1 <= 50
+1 <= L2 <= 50
+
+Example Input/Output 1:
+Input:
+4 5
+1 5 9 10
+22 5 12 9 5
+
+Output:
+4
+
+Explanation:
+The distinct elements present in first array are 1, 10 and in the second array are 22, 12.
+
+Example Input/Output 2:
+Input:
+3 2
+100 200 300
+201 600
+
+Output:
+5
+
+my solution:
+#include <iostream>
+#include <stdlib.h> 
+#include <vector>
+using namespace std;
+int compare (const void * a, const void * b)
+{
+  return ( *(int*)a - *(int*)b );
+}
+
+int main()
+{
+    int n,m,i,j,count=0,k=0,y=0;
+    cin>>n>>m;
+    //vector<int >a(n);
+    //vector<int >b(m);
+    int *a=new int[n];
+    int *b=new int[m];
+    for(i=0;i<n;i++){
+        cin>>a[i];
+    }
+    for(i=0;i<m;i++){
+        cin>>b[i];
+    }
+    qsort(a,n,sizeof(int),compare);
+    qsort(b,m,sizeof(int),compare);
+    for(i=0;i<n;i++){
+        int c=0;
+        if(i>0){
+            if(a[i]==a[i-1]){
+                k++;
+                continue;
+            }
+        }
+        for(j=y;j<m && b[j]<=a[i];j++){
+            if(a[i]==b[j]){
+                if(c==b[j]){
+                    k++;
+                    continue;
+                }
+                count++;
+                c=a[i];
+                }
+        }
+        y=j;
+    }
+    cout<<n+m-(2*count)-k;
+}
