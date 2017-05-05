@@ -1,0 +1,25 @@
+pattern programming
+3
+1 4 6
+2 5
+3
+sol:
+#include <iostream>
+ 
+using namespace std;
+
+int main()
+{
+    int n,i,j;
+    cin>>n;
+    for(i=1;i<=n;i++){
+        int temp=n,value=i;
+        for(j=n-i;j>=0;j--){
+            cout<<value<<" ";
+            value=value+temp;
+            temp--;
+        }
+        cout<<endl;
+    }
+    return 0;
+}
