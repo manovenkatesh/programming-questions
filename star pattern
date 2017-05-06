@@ -1,0 +1,84 @@
+An odd length string S is passed as the input. The program must print the pattern as described below.
+
+Let L be the length of the string and M denote the middle position of the string S. The characters in the string are a(1),...., a(M), .... a(L).
+- The first line will contain the middle letter a(M) of S in the extreme right.
+- Then in each subsequent line, the letters after the middle letter from a(M+1) to a(L) is appended to the line output.
+- After the end of the string a(L) is reached, in each subsequent line, the letters from the beginning to the middle letter, a(1) to a(M-1) are appended to the line output.
+Note: Asterisk * will be used to pad in the front so that each line has L characters
+
+Input Format:
+The first line will contain S.
+
+Output Format:
+L lines as output where L is the length of the string S.
+
+Boundary Conditions:
+3 <= L <= 1001
+
+Example Input/Output 1:
+Input:
+CRY
+
+Output:
+**R
+*RY
+RYC
+
+Example Input/Output 2:
+Input:
+PROGRAM
+
+Output:
+******G
+*****GR
+****GRA
+***GRAM
+**GRAMP
+*GRAMPR
+GRAMPRO
+
+sol:
+#include <iostream>
+#include <string>
+
+#include <vector> 
+using namespace std;
+
+int main()
+{
+    string s;
+    cin>>s;
+    int n,i,j,mid,temp;
+    n=s.length();
+    mid=(n+1)/2;
+    mid--;
+   vector<char>front;
+    for(i=mid;i<n;i++){
+        front.push_back(s[i]);
+    }
+    for(i=0;i<mid;i++){
+        front.push_back(s[i]);
+    }
+     temp=n-1;
+    for(i=0;i<n;i++){
+        for(j=temp;j>0;j--){
+            cout<<"*";
+        }
+       
+        for(j=0;j<n-temp;j++){
+            cout<<front[j];
+        }
+        temp--;
+        cout<<endl;
+    }
+
+return 0;
+
+}
+
+
+
+there is another logic for this question str(temp%n) where temp=mid is initialized before the loop and incremented in side the
+loop. whenever it exceeds the value n the value will be counted up to that.(It is done by another person. great idea...!)
+
+
