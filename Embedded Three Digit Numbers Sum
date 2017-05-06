@@ -1,0 +1,82 @@
+Embedded Three Digit Numbers Sum
+
+A string S is passed as the input with numbers embedded in it. The program must print the sum of all three digit numbers embedded in the string. The program must print 0 (zero) if no three digit numbers are embedded in the string.
+
+
+Input Format:
+The first line will contain the string S.
+
+Boundary Conditions:
+Length of S is from 2 to 200
+
+Output Format:
+The sum of all three digit numbers embedded in the string.
+
+
+Example Input/Output 1:
+
+Input:
+teamscored307runsin50oversinthe3rdmatch
+
+Output:
+307
+
+Explanation:
+307 is the only three digit number embedded. Hence the sum is also 307.
+
+
+Example Input/Output 2:
+
+Input:
+ibought234chocolates45icecreams121sticks600combsand9545mouse
+
+Output:
+955
+
+Explanation:
+The three digit numbers embedded in the string are 234, 121 and 600. Hence sum is 955.
+(9545 is a four digit number and hence not considered).
+
+ 
+
+Example Input/Output 3:
+
+Input:
+monkey70parrot40okay
+
+Output:
+0
+
+Explanation:
+
+No three digit numbers embedded in the string
+
+my sol:
+
+#include <iostream>
+ #include <math.h>
+using namespace std;
+
+int main(int argc, char** argv)
+{
+string s;
+int count=0,value=0,sum=0;
+cin>>s;
+for(int i=s.length()-1;i>=0;i--){
+    if(!isalpha(s[i])){
+        int d=s[i]-'0';
+        value=value+(d*pow(10,count));
+        count++;
+    }
+    else {
+        if(count==3){
+            sum+=value;
+        }
+        value=0;
+        count=0;
+    }
+    }
+cout<<sum;
+return 0;
+    
+}
