@@ -1,0 +1,237 @@
+MATRIX - FILL TWO WORDS
+
+A N*N matrix having N rows and N columns containing + or * for it's cell values is passed as the input. Two strings S1 and S2 are also passed as input. The program must search for * in a straight line (either left to right or top to bottom) and replace them with strings S1 and S2.
+
+Input Format:
+The first line will contain the value of N.
+The next N lines will contain the values for N rows having +  and  * representing the cell values of the matrix.
+The last two lines will contain the value of the two strings S1 and S2 respectively.
+
+Output Format:
+N lines with the matrix cell values containing * replaced by the characters in the string values S1 and S2.
+
+Constraints:
+4 <= N <= 100
+Length of S1 and S2 is from 2 to N.
+
+Example Input/Output 1:
+Input:
+10
+++++++++++
+++++++++++
++++*++++++
++++*++++++
++++***++++
++++*++++++
++++*++++++
++++*++++++
+++++++++++
+++++++++++
+MANAGE
+NEW
+
+Output:
+++++++++++
+++++++++++
++++M++++++
++++A++++++
++++NEW++++
++++A++++++
++++G++++++
++++E++++++
+++++++++++
+++++++++++
+
+Example Input/Output 2:
+Input:
+6
+++++++
+++*+++
+++****
+++*+++
+++*+++
+++++++
+LION
+IRON
+
+Output:
+++++++
+++L+++
+++IRON
+++O+++
+++N+++
+++++++
+
+my sol:
+
+#include <iostream>
+#include<vector> 
+using namespace std;
+
+int main(int argc, char** argv)
+{
+    int n,i,j,temp,h=0,har,ver,intersect=0,l1done=0,l2done=0;
+    int startc[2],startr[2],endr[2],endc[2],count=0,intr,intc,l1,l2;
+    cin>>n;
+    vector< vector <char> >p(n,vector<char>(n));
+    
+    for(j=0;j<n;j++){
+        for(i=0;i<n;i++){
+            cin>>p[j][i];
+        }
+    }
+    
+    string s1,s2;
+    cin>>s1>>s2;
+    l1=s1.length();
+    l2=s2.length();
+    for(i=0;i<n;i++){
+        for(j=0;j<n;j++){
+            if(p[i][j]=='*' && j+1!=n && p[i][j+1]=='*' && count<2){
+                startr[count]=i;
+               
+                startc[count]=j;
+     //           cout<<startc[count]<<count<<endl;
+                temp=j;
+                while(temp<n && p[i][temp]=='*'/*||(temp<n) && p[i][temp]=='0'*/){
+                    if(i+1!=n){
+                    if(p[i+1][temp]!='*'||l1!=2 && l2!=2){
+                       p[i][temp]='0';     //replacing by 0 when it has taken in to account to avoid unnecessary iteration
+                        
+                    }
+                    else{
+                        intr=i;             //when both lower and right side element containing * then that is the intersection point.
+                        intc=temp;
+                        intersect++;
+                    }}
+                    temp++;
+                }
+                endr[count]=i;
+                endc[count]=temp;
+                har=count;
+                //h++;
+                if(endc[count]-startc[count]==l1 && l1done==0 ){
+                    l1done++;count++;h++;
+                }
+                if(endc[count]-startc[count]==l2 && l2done==0)
+                {count++;h++;
+                    l2done++;
+                }
+            }
+            if(p[i][j]=='*' && i+1!=n && p[i+1][j]=='*' /*&& count<2*/){
+                
+                startr[count]=i;
+                startc[count]=j;
+                temp=i;
+                while(temp<n && p[temp][j]=='*'/*||temp<n && p[temp][j]=='0'*/){
+                    if(j+1!=n){if(p[temp][j+1]!='*'){
+                        p[temp][j]='0';
+                        }
+                    else{
+                        intr=temp;
+                        intc=j;
+                        intersect++;
+                    }}
+                    temp++;
+                }
+                endr[count]=temp;
+                ver=count;
+                endc[count]=j;
+                if(endr[count]-startr[count]==l1|| endr[count]-startr[count]==l2)
+                count++;
+            }
+        }
+    }
+    //cout<<ver<<" "<<har<<" "<<h<<endl;
+    /*cout<<startr[ver]<<" "<<startc[ver]<<" "<<endr[ver]<<" "<<endc[ver]<<endl;
+    cout<<startr[har]<<" "<<startc[har]<<" "<<endr[har]<<" "<<endc[har]<<endl;
+    cout<<intr<<" "<<intc<<endl;*/
+    cout<<startr[0]<<" "<<startc[0]<<" "<<endr[0]<<" "<<endc[0]<<endl;
+    cout<<startr[1]<<" "<<startc[1]<<" "<<endr[1]<<" "<<endc[1]<<endl;
+    cout<<intr<<" "<<intc<<endl<<h;
+
+    if(h==1){
+        l1=endc[har]-startc[har];//to find the length of the string to be in horizantly
+        l2=endr[ver]-startr[ver];   // to find the length of the string to be in vertical order
+       // cout<<l1<<" "<<l2;
+        if(s1.length()==s2.length())//problem occurs when both are having same length
+            {
+                for(i=startr[ver];i<endr[ver];i++)//fitting the s1 in to vertical order
+                    p[i][startc[ver]]=s1[i-startr[ver]];
+                if(p[intr][intc]==s2[0] && intersect>0) //checking whether we are fit the words perfectly or not by using intersection
+                {
+                    for(i=startc[har];i<endc[har];i++)//got green sl from comparision.so we are moving further
+                        p[startr[har]][i]=s2[i-startc[har]];
+                }
+                else{
+                    for(i=startr[ver];i<endr[ver];i++)//the fitted order is wrong.so,fitting the s2 in to vertical order
+                        p[i][startc[ver]]=s2[i-startr[ver]];
+                    for(i=startc[har];i<endc[har];i++)//if one fitting is wrong then another wouldbe correct.
+                        p[startr[har]][i]=s1[i-startc[har]];
+                }
+        }
+        else if(s1.length()==l1){
+            for(i=startc[har];i<endc[har];i++)//when the s1 length is equal to l1 fitting in to horizontal line
+                 p[startr[har]][i]=s1[i-startc[har]];
+            for(i=startr[ver];i<endr[ver];i++)//fitting the s2 in to vertical order
+                        p[i][startc[ver]]=s2[i-startr[ver]];
+            }
+        else {
+            for(i=startc[har];i<endc[har];i++)//since s1 is not fit. diffinately s2 will fit horizonatally 
+                 p[startr[har]][i]=s2[i-startc[har]];
+                 
+             for(i=startr[ver];i<endr[ver];i++)//fitting the s1 in to vertical order
+                        p[i][startc[ver]]=s1[i-startr[ver]];
+            
+        }
+    }
+    else if(h==0){//when both lines are vertical.
+        l1=endr[0]-startr[0];//since both are vertical no need to use variable ver,har. just refering by 0 or 1
+        l2=endr[1]-startr[1];
+        //cout<<l1<<" "<<l2<<endl;
+        if(l1==s1.length()){    //if l1 is equal to s1 then fit s1 in to that area.
+            for(i=startr[0];i<endr[0];i++)
+                p[i][startc[0]]=s1[i-startr[0]];
+            for(i=startr[1];i<endr[1];i++)// fitting s2 in to the space available at another place
+                p[i][startc[1]]=s2[i-startr[1]];
+            
+        }
+        else{
+            for(i=startr[0];i<endr[0];i++)// if l1 is not equal to s1 then s2 will placed there definitely
+                p[i][startc[0]]=s2[i-startr[0]];
+            for(i=startr[1];i<endr[1];i++)// fitting s1 in to the space available at another place
+                p[i][startc[1]]=s1[i-startr[1]];
+            
+        }
+    }
+    else if(h==2){//when both lines are horizontal
+        l1=endc[0]-startc[0];//since both are vertical no need to use variable ver,har. just refering by 0 or 1
+        l2=endc[1]-startc[1];
+        //cout<<l1<<" "<<l2<<endl<<startc[1];
+        if(l1==s1.length()){//when l1 is equal to s1 we have to fit that in to fit s1
+            for(i=startc[0];i<endc[0];i++)
+                p[startr[0]][i]=s1[i-startc[0]];
+            for(i=startc[1];i<endc[1];i++)//fitting s2 in to fit another free space
+                p[startr[1]][i]=s2[i-startc[1]];
+            
+        }
+        else{
+            for(i=startc[0];i<endc[0];i++)//l1 is not equalto s1 then diffenitely we have to fit s2 in first place
+                p[startr[0]][i]=s2[i-startc[0]];
+           // cout<<p[startr[1]][startc[1]];
+            for(i=startc[1];i<endc[1];i++)//fitting s1 in to fit another free space
+                p[startr[1]][i]=s1[i-startc[1]];
+            
+        }
+    }
+    for(j=0;j<n;j++){
+        for(i=0;i<n;i++){
+            cout<<p[j][i];
+        }
+        cout<<endl;}
+   return 0;}
+   
+   
+   
+  note: I didnt complete this program . i failed in hidden test cases of that compiler i tried a lot to debug the errors.
+  still trying to complete.
