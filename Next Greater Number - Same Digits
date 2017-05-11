@@ -1,0 +1,90 @@
+Next Greater Number - Same Digits
+
+A number N is passed as the input. The program must print the next greater number with the same digits.
+
+Input Format:
+First line will contain the value of N.
+
+Output Format:
+First line will contain the next greater number with the same digits.
+
+Boundary Conditions:
+1 <= N <= 99999999999999
+
+Example Input/Output 1:
+Input:
+12
+
+Output:
+21
+
+Example Input/Output 2:
+Input:
+195
+
+Output:
+519
+
+
+
+
+my sol:
+
+#include <iostream>
+#include<vector> 
+using namespace std;
+
+int main(int argc, char** argv)
+{
+    int i,l,j,k,m;
+    string s;
+    cin>>s;   // getting the no. input in string to make calculation easy
+    l=s.length();
+    vector<int>a(l);
+    for(i=0;i<l;i++){
+        a[i]=s[i]-'0';//storing element in a vector
+    }
+    for(i=l-1;i>0;i--){
+       
+        for(j=i-1;j>=0;j--){
+            if(a[i]>a[j]){        //first checking i th digit all previous higher order digits in order to fit that if it is the 
+            case with 195 first we have to replace last element to the first that is 591.
+                a[i]=a[i]+a[j]-(a[j]=a[i]);//swapping
+                for(int k=j+1;k<l;k++){//hear we have obtained the 591 but we require 519 so we have to check from j+1 to l and 
+                ascend them with order to get smallest no.
+                    for(m=k+1;m<l;m++){
+                        if(a[k]>a[m]){
+                            a[k]=a[k]+a[m]-(a[m]=a[k]);//ascending them
+                        }
+                    }
+                    
+                }
+                goto x;
+            }
+        }
+    }
+    x: for(i=0;i<l;i++){
+        cout<<a[i];
+    }
+    return 0;
+   }
+   
+   
+  algorithm:
+  consider 4841965, here we are comparing 5 with every previous digits until it gets the lesser value than 5. after finfing that
+  just swapping that we may get as 4845961. then we have to arrange the values after 5 in ascending order in order to get lowest 
+  nearest value 4845169. here there is no need to care about previous value of that 5, if we swap greater value after the 5, we 
+  will reach lesser value than given(4548961) . if we swap lesser value than 5 we will reach to greatest value than we want
+  (4854961). this is the basic idea behind the solution.
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
