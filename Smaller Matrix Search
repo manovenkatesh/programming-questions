@@ -1,0 +1,148 @@
+A bigger NxN matrix is passed as the input. Also a smaller MxM matrix is passed as input. 
+The program must print TRUE if the smaller matrix can be found in the bigger matrix. Else the program must print FALSE.
+
+Input Format:
+First line will contain the value of N.
+Second line will contain the value of M.
+Next N lines will contain the values in the N*N matrix with each value separated by one or more space.
+Next M lines will contain the values in the M*M matrix with each value separated by one or more space.
+
+Output Format:
+First line will contain the string value TRUE or FALSE
+
+Boundary Conditions:
+3 <= N <= 20
+2 <= M <= N
+
+Example Input/Output 1:
+Input:
+3
+2
+4 5 9
+1 3 5
+8 2 4
+3 5
+2 4
+
+Output:
+TRUE
+
+Example Input/Output 2:
+Input:
+3
+2
+4 5 9
+1 3 5
+8 2 4
+4 5
+1 4
+
+Output:
+FALSE
+
+my sol:
+#include <iostream>
+#include <vector>
+ 
+using namespace std;
+
+int main(int argc, char** argv)
+{
+    int n,m,i,j,count=0;
+    cin>>n>>m;
+    vector<vector<int> >ba(n,vector<int>(n));
+    vector<int >sa(m*m);
+    for(i=0;i<n;i++){
+        for(j=0;j<n;j++){
+            cin>>ba[i][j];
+        }
+    }
+    for(i=0;i<m*m;i++){
+            cin>>sa[i];
+    }
+    vector<vector<int> >row(m,vector<int>(m));
+    vector<vector<int> >col(m,vector<int>(m));
+    int temp=0,r=0,c=0;
+     int rcount=0,ccount=0;
+    while(temp<m*m){
+        for(i=0;i<n;i++){
+        for(j=0;j<n;j++){
+            if(ba[i][j]==sa[temp]){
+               if(((j+1<n)&& (temp+1<m*m) && ba[i][j+1]==sa[temp+1] )/*|| (i+1<n && temp+n<m*m && ba[i+1][j]==sa[temp+n])*/|| (((j-1)>=0 && (temp-1)>=0 && ba[i][j-1]==sa[temp-1] )/*|| ((i-1)>=0 && (temp-n)>=0 && ba[i-1][j]==sa[temp-n]))*/))
+                {
+                
+                
+                
+                row[r][c]=i;
+                col[r][c]=j;
+                //ba[i][j]='*';
+                count++;
+                // cout<<sa[temp]<<" ";
+                if(c==m-1){
+                r++;
+                c=0;
+                }
+                else{
+                    c++;
+                }
+                if(r==m){
+                    goto x;
+                }
+               
+                temp++;
+                }}
+            
+        }
+    }
+        
+        goto z;
+         temp++;
+    }
+   
+    x: for(i=0;i<m;i++){
+        for(j=0;j<m;j++){
+        cout<<row[i][j]<<" "<<col[i][j]<<" ";
+        }cout<<endl;}
+    
+    if(count==m*m){
+        r=0,c=0;
+        while(r<m){
+        for(i=0;i<m;i++){
+            if(row[r][0]==row[r][i]){
+                rcount++;           
+            }
+            else{
+                goto z;
+            }
+            
+        }
+        
+        r++;
+        }
+        r=0;
+    while(r<m){
+        for(i=0;i<m;i++){
+            if(col[0][r]==col[i][r]){
+                ccount++;
+            }
+            else{
+                goto z;}
+        }
+        r++;
+    }}
+   
+        cout<<"TRUE";
+        return 0;
+
+    z: 
+    //cout<<rcount<<" "<<ccount<<" ";
+    
+   cout<<"FALSE";
+    return 0;
+    /*cout<<count<<endl;
+    for(i=0;i<m;i++){
+        for(j=0;j<m;j++){
+        cout<<row[i][j]<<" "<<col[i][j]<<" ";
+        }
+    cout<<endl;}*/
+}
