@@ -1,0 +1,53 @@
+common characters in n strings(all the n strings should contain the same characters)
+input:
+3
+idea
+candle
+sand
+output:
+ad
+
+sol:
+#include <iostream>
+ 
+using namespace std;
+
+int main(int argc, char** argv)
+{
+    int alpha[26]={0},n,i,j,k;
+    cin>>n;
+    string s[n];
+    for(i=0;i<n;i++){
+        cin>>s[i];
+       
+    }
+    for(i=0;i<n;i++){
+        for(j=0;j<s[i].length();j++){
+            if(s[i][j]!='0'){
+                alpha[s[i][j]-'a']++;
+                for(k=j+1;k<s[i].length();k++){
+                    if(s[i][j]==s[i][k]){
+                        //cout<<s[i][j]<<" "<<s[i][k]<<endl;
+                        s[i][k]='0';
+                    }
+                }
+                s[i][j]='0';
+            }
+        }
+    }
+    int count=0;
+    for(i=0;i<26;i++){
+        /*char d='a'+i;
+        if(alpha[i]>0)
+        cout<<d<<" "<<alpha[i]<<endl;*/        
+        if(alpha[i]>=n){
+            char c=i+'a';
+            cout<<c;
+            count++;
+        }
+    }
+    if(count==0){
+        cout<<"-1";
+    }
+return 0;
+}
