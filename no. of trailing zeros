@@ -1,0 +1,51 @@
+
+A number N will be provided as the input. The program must print the number of trailing zeroes in N!
+
+Input Format:
+Number N will be passed as the input.
+
+Boundary Conditions:
+0 < N <= 99999999
+
+
+Output Format:
+The number which represents the trailing zeroes in N! is printed as output.
+
+Example Input/Output:
+
+Example 1:
+Input is 4
+4! = 24. There are no trailing zeroes in 24.
+So the output is 0
+
+Example 2:
+Input is 6
+6! = 720. There is 1 trailing zero in 720.
+So the output is 1
+
+Example 3:
+Input is 15
+15! = 1307674368000. There are 3 trailing zero in 1307674368000.
+So the output is 3
+
+#include <iostream>
+ #define max 20000;
+using namespace std;
+
+int main(int argc, char** argv)
+{
+ double n,value=0;
+ int i;
+ cin>>n;
+ for(i=1;i<=n;i++){
+     if(i%5==0){
+         value++;
+        int temp=i/5;
+         while(temp>0 && temp%5==0){
+             temp=temp/5;
+             value++;
+         }
+     }
+ }
+cout<<value;
+}
