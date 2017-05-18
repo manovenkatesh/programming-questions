@@ -1,0 +1,258 @@
+#include <iostream>
+#include<string> 
+#include<vector>
+#include<math.h>
+using namespace std;
+ int convert(string s2){
+        int j=0;
+        int value=0;
+        while(j<s2.length()){
+            int temp=s2[s2.length()-1-j]-'0';
+            value=value+temp*pow(10,j);
+            j++;
+        }
+        return value;
+    }
+   
+int main(int argc, char** argv)
+{
+    string s;
+    int i,j,k,l,c,sj,sk,sl,si;
+    double val,total=0;
+    cin>>s;
+    string m=s.substr(0,1);
+    i=convert(m);
+    m=s.substr(1,1);
+    j=convert(m);
+    m=s.substr(s.length()-1,1);
+    k=convert(m);
+    m=s.substr(s.length()-2,1);
+    l=convert(m);
+     m=s.substr(0,2);
+    si=convert(m);
+    m=s.substr(2,1);
+    sj=convert(m);
+     m=s.substr(s.length()-1,1);
+    sk=convert(m);
+     m=s.substr(s.length()-3,2);
+    sl=convert(m);
+    if((i-1==j ||i-2==j) && (k+1==l ||k+2==l))
+    {
+        val=((i*(i+1))/2);
+        val=val-((k-1)*k)/2;
+        for(c=0;c<s.length();c++){
+            m=s.substr(c,1);
+            int temp;
+            temp=convert(m);
+            total+=temp;
+        }
+        
+        cout<<val-total;
+        return 0;
+    }
+    if(((si-1==sj)||(si-2==sj)) && ((sk+1==sl)||(sk+2==sl)))
+    {
+        int d;
+        val=((si*(si+1))/2);
+        val=val-((sk-1)*sk)/2;
+        if(si>=10)
+            d=si-10;
+        for(c=0;c<s.length();c=c+1){
+            if(c<=d*2){
+                m=s.substr(c,2);
+                int temp;
+                temp=convert(m);
+                total+=temp;
+                c++;
+            }
+            m=s.substr(c,1);
+            int temp;
+            temp=convert(m);
+            total+=temp;
+        }
+        cout<<val-total;
+        return 0;
+    }
+
+    m=s.substr(0,2);
+    i=convert(m);
+    m=s.substr(0,3);
+    si=convert(m);
+    m=s.substr(2,2);
+    j=convert(m);
+    m=s.substr(3,2);
+    sj=convert(m);
+    m=s.substr(s.length()-2,2);
+    k=convert(m);
+    m=s.substr(s.length()-3,3);
+    sk=convert(m);
+    m=s.substr(s.length()-4,2);
+    l=convert(m);
+    m=s.substr(s.length()-5,2);
+    sl=convert(m);
+    if((i-1==j ||i-2==j) && (k+1==l ||k+2==l))
+    {
+        val=((i*(i+1))/2);
+        val=val-((k-1)*k)/2;
+        for(c=0;c<s.length();c=c+2){
+            m=s.substr(c,2);
+            int temp;
+            temp=convert(m);
+            total+=temp;
+        }
+        cout<<val-total;
+        return 0;
+    }
+    if(((si-1==sj)||(si-2==sj)) && ((sk+1==sl)||(sk+2==sl)))
+    {
+        int d;
+        val=((si*(si+1))/2);
+        val=val-((sk-1)*sk)/2;
+        if(si>=100)
+            d=si-100;
+        for(c=0;c<s.length();c=c+2){
+            if(c<=d*3){
+                m=s.substr(c,3);
+                int temp;
+                temp=convert(m);
+                total+=temp;
+                c++;
+            }
+            m=s.substr(c,2);
+            int temp;
+            temp=convert(m);
+            total+=temp;
+        }
+        cout<<val-total;
+        return 0;
+    }
+
+    m=s.substr(0,3);
+    i=convert(m);
+    m=s.substr(3,3);
+    j=convert(m);
+    m=s.substr(s.length()-3,3);
+    k=convert(m);
+    m=s.substr(s.length()-6,3);
+    l=convert(m);
+     m=s.substr(0,4);
+    si=convert(m);
+    m=s.substr(4,3);
+    sj=convert(m);
+     m=s.substr(s.length()-3,3);
+    sk=convert(m);
+     m=s.substr(s.length()-7,4);
+    sl=convert(m);
+    if((i-1==j ||i-2==j) && (k+1==l ||k+2==l))
+    {
+        val=((i*(i+1))/2);
+        val=val-((k-1)*k)/2;
+        for(c=0;c<s.length();c=c+3){
+            m=s.substr(c,3);
+            int temp;
+            temp=convert(m);
+            total+=temp;
+        }
+        cout<<val-total;
+        return 0;
+    }
+     if(((si-1==sj)||(si-2==sj)) && ((sk+1==sl)||(sk+2==sl)))
+    {
+        int d;
+        val=((si*(si+1))/2);
+        val=val-((sk-1)*sk)/2;
+         cout<<val<<endl;
+        if(si>=1000)
+            d=si-1000;
+        for(c=0;c<s.length();c=c+3){
+            if(c<=d*4){
+                m=s.substr(c,4);
+                int temp;
+                temp=convert(m);
+                total+=temp;
+                c++;
+            }
+            m=s.substr(c,3);
+            int temp;
+            temp=convert(m);
+            total+=temp;
+        }
+        cout<<val-total;
+        return 0;
+    }
+    m=s.substr(0,4);
+    i=convert(m);
+    m=s.substr(4,4);
+    j=convert(m);
+    m=s.substr(s.length()-4,4);
+    k=convert(m);
+    m=s.substr(s.length()-8,8);
+    l=convert(m);
+     m=s.substr(0,5);
+       si=convert(m);
+    m=s.substr(5,4);
+    sj=convert(m);
+     m=s.substr(s.length()-4,4);
+    sk=convert(m);
+     m=s.substr(s.length()-9,5);
+    sl=convert(m);
+ 
+    if((i-1==j ||i-2==j) && (k+1==l ||k+2==l))
+    {
+        val=((i*(i+1))/2);
+        val=val-((k-1)*k)/2;
+        for(c=0;c<s.length();c=c+4){
+            m=s.substr(c,4);
+            int temp;
+            temp=convert(m);
+            total+=temp;
+        }
+        cout<<val-total;
+        return 0;
+    }
+        if(((si-1==sj)||(si-2==sj)) && ((sk+1==sl)||(sk+2==sl)))
+    {
+        int d;
+        val=((si*(si+1))/2);
+        val=val-((sk-1)*sk)/2;
+        if(si>=10000)
+            d=si-10000;
+        for(c=0;c<s.length();c=c+4){
+            if(c<=d*5){
+                m=s.substr(c,5);
+                int temp;
+                temp=convert(m);
+                total+=temp;
+                c++;
+            }
+            m=s.substr(c,4);
+            int temp;
+            temp=convert(m);
+            total+=temp;
+        }
+        cout<<val-total;
+        return 0;
+    }
+    m=s.substr(0,5);
+    i=convert(m);
+    m=s.substr(5,5);
+    j=convert(m);
+    m=s.substr(s.length()-5,5);
+    k=convert(m);
+    m=s.substr(s.length()-10,5);
+    l=convert(m);
+    if(i-1==j ||i-2==j && k+1==l ||k+2==l)
+    {
+        val=((i*(i+1))/2);
+        val=val-((k-1)*k)/2;
+        for(c=0;c<s.length();c=c+5){
+            m=s.substr(c,5);
+            int temp;
+            temp=convert(m);
+            total+=temp;
+        }
+        
+        cout<<val-total;
+        return 0;
+    }
+}
