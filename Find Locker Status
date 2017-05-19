@@ -1,0 +1,43 @@
+Find Locker Status
+
+There are "N" closed lockers numbered 1 to N. A person begins by opening all "N" lockers. Next, he closes every second locker. Then he goes to every third locker and closes it if it is open or opens it if it is closed (toggles the locker open/close status). He continues to toggle every "K"th locker on pass number K.
+He completes his activity when pass N (that is till K equals N) is reached.
+
+The program should print the open/close status of a locker when the locker number L is provided as input. The program should print "open" if the locker is open. It should print "closed" is locker is closed.
+
+Input format:
+Two string input values will be passed as input.
+First string will be N - the number of lockers.
+Second string will be L - the number of the locker for which status is to be printed.
+
+Output format:
+The output is a single line whose value is either "open" or "closed"
+
+
+Sample Input1:
+5  3
+
+Sample Output1:
+closed
+
+SOL:
+
+#include <iostream>
+ 
+using namespace std;
+
+int main(int argc, char** argv)
+{
+    int n,i,k,value=0;
+    cin>>n>>k;
+    for(i=2;i<k;i++){//SINCE THE CHANGE OF LOCKER STATUS MAY HAPPEN ONLY BY THE FACTORS OF THE K AND K ITSELF SO IT DETERMINES THE FACTOR
+        if(k%i==0)
+            value++;
+    }
+    value=value%2;
+    if(value==0)
+        cout<<"closed"<<endl;
+    else
+        cout<<"open"<<endl;
+    return 0;
+}
