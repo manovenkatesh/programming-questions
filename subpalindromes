@@ -1,0 +1,85 @@
+
+Given a string S, the program must print the count of sub palindromes (with a minimum length of two characters) in the string S.
+
+Boundary Conditions:
+Length of the string is between 2 and 200.
+
+Input Format:
+First line will contain the string value S.
+
+Output Format:
+First line will contain the integer which represents the count of sub palindromes in the string S.
+
+
+Sample Input/Output:
+
+Example 1:
+Input:
+everest
+
+Output:
+2
+
+Explanation:
+The sub palindromes are eve, ere
+
+
+Example 2:
+Input:
+abccbaab
+
+Output:
+5
+
+Explanation:
+The sub palindromes are cc, bccb, aa, baab, abccba
+
+
+
+sol:
+
+#include<stdio.h>
+#include <stdlib.h>
+#include<string.h>
+
+int ispal(char s[],int f,int e){
+    int count=0;
+    for(int i=0;i<((e-f)/2)+1 && f+i<e-i;i++){
+        if(s[f+i]==s[e-i]){
+            count++;
+        }
+        else{
+            return 0;
+        }
+    }
+    return 1;
+}
+
+int main()
+{
+    char s[200];
+    int i,j,ti,tj,k=0,count=0,l;
+    scanf("%s",s);
+    l=strlen(s);
+    j=l-1;
+    for(i=0;i<l-1;i++){
+        j=l-1;
+        while(j>i){
+            if(ispal(s,i,j)){
+                count++;
+            }
+            j--;
+        }
+        
+    }
+    printf("%d",count);
+return 0;
+
+}
+
+
+exp:
+
+here in function e-f/2+1 is to determine the length of the given string from start to end. +1 is to avoid to make 0 to 1.
+since division has taken place. if we increase 1 from the function call ispal(s.i,j+1) the it denotes next element so we cant 
+obtain for certain cases so i have denoted in this way.
