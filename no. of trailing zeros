@@ -38,7 +38,7 @@ int main(int argc, char** argv)
  int i;
  cin>>n;
  for(i=1;i<=n;i++){
-     if(i%5==0){
+     if(i%5==0){//SINCE IT IS FACTORIAL LOT OF 2,5,10 WILL BE AVAILABLE IN THE GIVEN FACTORIAL. WE HAVE TO FIND THE MULTIPLES OF 5. 
          value++;
         int temp=i/5;
          while(temp>0 && temp%5==0){
@@ -49,3 +49,8 @@ int main(int argc, char** argv)
  }
 cout<<value;
 }
+
+BASIC IDEA:
+    IF WE WANT TO FIND THE NO.OF 'N' AVAILABLE IN ANY FACTORIAL WE HAVE TO FIND THE GREATEST PRIME FACTOR OF N. AND THEN WE HAVE
+    TO KNOW HOW MANY MULTIPLE ARE AVAILABLE IN THAT RANGE. 100/5=20 AND 20 ALSO DIVISIBLE BY 5 SO FURTHER WE HAVE TO DIVIDE BY 5
+    SO THAT WE MAY GET EXACT VALUE OF ZEROS.
