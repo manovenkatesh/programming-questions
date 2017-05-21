@@ -1,0 +1,21 @@
+find the no. of 1 s in the binary value of given no.
+
+#include <iostream>
+#include <stdint.h> 
+using namespace std;
+
+int main(int argc, char** argv)
+{
+    uint64_t n;
+    uint64_t c=1;
+    int count=0;
+    cin>>n;
+    while(n!=0){
+        count+=(n&c);
+        n=n>>1;
+    }
+    cout<<count;
+}
+
+here unsigned integer 64 data type is used to store upto 19 digit no. i.e uint64_t is used to store 64bit value. by using that we 
+may easily solve the problem. 
