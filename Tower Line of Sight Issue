@@ -1,0 +1,82 @@
+Tower Line of Sight Issue
+
+Four towers A, B, C, D are to be erected. Tower A is to communicate with tower C. Tower B is to communicate with tower D.
+Line of sight issue can occur under the following conditions
+- when tower B or D is in the straight line connecting A and C
+- when tower A or C is in the straight line connecting B and D
+
+The program must accept the co-ordinates of all four towers and print yes or no depending on whether Line of sight issue will occur or not.
+
+Input Format:
+The first line will contain X and Y co-ordinates of tower A separated by a space.
+The second line will contain X and Y co-ordinates of tower B separated by a space.
+The third line will contain X and Y co-ordinates of tower C separated by a space.
+The fourth line will contain X and Y co-ordinates of tower D separated by a space
+
+Output Format:
+The first line will contain yes or no (smaller case)
+
+Boundary Conditions:
+The value of the co-ordinates will be from -500 to 500.
+
+Example Input/Output 1:
+0 0
+0 -2
+2 0
+0 2
+
+Output:
+yes
+
+
+Example Input/Output 2:
+Input:
+0 0
+0 -2
+2 0
+0 -5
+
+Output:
+no
+
+
+#include <iostream>
+using namespace std;
+
+int main() {
+	// your code goes here
+    int x[4],y[4],i,j;
+    for(i=0;i<4;i++)
+        cin>>x[i]>>y[i];
+    for(i=1;i<4;i=i+2){   
+    if(x[0]==x[2] && x[0]==x[i]){
+        if(y[0]<y[i]&& y[i]<y[2] || (y[0]>y[i]&& y[i]>y[2])){
+            cout<<"yes"/*<<"123 or 134x"*/;
+            return 0;
+        }
+    }
+    else if(y[0]==y[2] && y[0]==y[i]){
+        if(x[0]<x[i]&& x[i]<x[2] || (x[0]>x[i]&& x[i]>x[2])){
+            cout<<"yes"/*<<"123 or 134y"*/;
+            return 0;
+        }
+    }
+    }
+    for(i=0;i<3;i=i+2){   
+    if(x[1]==x[3] && x[1]==x[i]){
+        if(y[1]<y[i]&& y[i]<y[3] || (y[1]>y[i]&& y[i]>y[3])){
+            cout<<"yes"/*<<"214 or 234x"*/;
+            return 0;
+        }
+    }
+    else if(y[1]==y[3] && y[1]==y[i]){
+        if(x[1]<x[i]&& x[i]<x[3] || (x[1]>x[i]&& x[i]>x[3])){
+            cout<<"yes"/*<<"214 or 234y"*/;
+            return 0;
+        }
+    }
+    }
+   
+    cout<<"no";
+	return 0;
+}
