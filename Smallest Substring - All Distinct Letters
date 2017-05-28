@@ -1,0 +1,124 @@
+Smallest Substring - All Distinct Letters
+
+
+A string value S containing only alphabets (both lower and upper case)
+is passed as input to the program. The program must print the size of
+the smallest substring which contains all the distinct alphabets in
+the string S.
+
+Input Format:
+First line contains S.
+
+Output Format:
+First line contains the size of the smallest substring which contains
+all the distinct characters in the string S.
+
+Boundary Conditions:
+1 <= Length of string S <= 1000
+
+Note:
+a and A (lower and upper case letters are considered different). Hence
+the string aAaaA contains 2 distinct alphabets.
+
+Example Input/Output 1:
+Input:
+abcdfffccbbfeaad
+
+Output:
+8
+
+Explanation:
+The smallest sub string that contains all the distinct letters is
+cbbfeaad whose length is 8.
+
+Example Input/Output 2:
+Input:
+klLDKFFKpPoOGAFSGxxkllhaJSHJAlqadyASFLHJASHFA
+
+Output:
+32
+
+Explanation:
+The smallest sub string that contains all the distinct letters is
+LDKFFKpPoOGAFSGxxkllhaJSHJAlqady whose length is 32.
+
+sol:
+#include <iostream>
+#include<algorithm>
+#include<string>
+#include<vector>
+using namespace std;
+string distinct(string s){
+    int i=0,alpha[57]={0},l=0,top=0;
+    for(i=0;i<s.length();i++){
+        if(isupper(s[i])){
+            alpha[s[i]-'A']++;
+            l++;
+        }
+        else{
+            alpha[s[i]-'a'+26]++;
+            l++;
+        }
+    }
+    char sub[l];
+    for(i=0;i<56;i++){
+        if(i<26){
+            if(alpha[i]>0){
+                char c='A'+i;
+                sub[top]=c;
+                top++;
+            }
+        }
+        if(i>=26 && i<56){
+            if(alpha[i]>0){
+                char c='a'+i-26;
+                sub[top]=c;
+                top++;
+            }
+    }}
+    sub[top]='\0';
+    return sub;
+} 
+
+int main(int argc, char** argv)
+{
+    string s,elements;
+    int i,j=0,k=0,stringlen,elementsl,min=0,count=0;
+    vector<int >distance;
+    distance.push_back(1000);
+   cin>>s;
+   stringlen=s.length();
+   elements=distinct(s);
+   
+   elementsl=elements.length();
+   i=elementsl-1;
+   while(k<stringlen-elementsl && i<stringlen){
+       string sub=s.substr(k,i);
+       string subdis=distinct(sub);
+            if(!subdis.compare(elements)){//checking whether first i distinct char equal to string distinct char
+                while(subdis.compare(elements)==0){//looping for upto get in equal distinct letters
+                    k++;
+                    i--;//increasing the index from front inorder to get lowest string length & decreasing the 
+                    sub=s.substr(k,i);
+                    subdis=distinct(sub);
+                   // cout<<subdis<<endl;
+                   
+                }
+                min=i+1;
+                count++;
+                //cout<<min<<endl;
+                distance.push_back(min);
+            }
+           i++;}
+    if(count==0){
+        distance[0]=stringlen;
+    }
+    
+   for(i=1;i<distance.size();i++){
+        if(distance[0]>distance[i]){
+            distance[0]=distance[0]+distance[i]-(distance[i]=distance[0]);
+        }       
+   }
+   cout<<distance[0];
+    return 0;
+}
