@@ -1,0 +1,157 @@
+Ways to repay loan
+
+A poor man borrows a sum of N rupees from his neighbour. The neighbour is kind enough not to impose any interest on the loan. The poor man agrees to re-pay the loan by paying back either 1 rupee or 2 rupees to his neighbour. In how many distinct ways can he repay the loan?
+
+Input Format:
+The first line will contain the value of N which is the loan amount.
+
+Output Format:
+The first line will contain the number of distinct ways in which the loan can be repaid.
+
+Constraints:
+1 <= N <= 999999
+
+Example Input/Output 1:
+Input:
+1
+
+Output:
+1
+
+Example Input/Output 2:
+Input:
+2
+
+Output:
+2
+
+Explanation:
+The loan can be re-paid as 1,1 or as 2
+
+Example Input/Output 3:
+Input:
+5
+
+Output:
+8
+
+Explanation:
+The loan can be re-paid as
+1,1,1,1,1 or
+1,1,1,2 or
+1,2,2 or
+1,1,2,1 or
+1,2,1,1 or
+2,2,1 or
+2,1,2 or
+2,1,1,1  
+
+sol:
+#include <iostream>
+using namespace std;
+
+int main() {
+	// your code goes here
+	int n,i,count=0,first=1,second=2;
+	cin>>n;
+	if(n==1){
+	    cout<<first;
+	}
+	else if(n==2){
+	    cout<<second;
+	}
+	else{
+	    for(i=3;i<=n;i++){
+	        count=first+second;
+	        first=second;
+	        second=count;
+	    }
+	    
+	}
+	cout<<count<<endl;
+	return 0;
+}
+
+
+solved by using this article:
+
+Stage: 3  Challenge Level:1
+This problem is a tricky one because it can be a bit tempting to try to count all the possibilities one by one. While this is sometimes necessary, often there's a better approach.
+
+Tayla, Cindy and Iris from Elm Park School started with smaller flights of stairs and spotted a pattern. Miss Hodgetts' Y9 Class from Ounsdale High School and many other people also saw the pattern. Well done.
+
+Suppose Liam is going down 12 steps. He can start by taking one step, then he has 11 more steps to go down. The only other possibility is that he starts by taking two steps and has 10 more steps to go down. So how does the number of ways of going down 12 steps depend on the number of ways of going down 10 steps and 11 steps?
+
+It helped to start with small numbers of steps and many people sent in lists like this one:
+
+1 Step	1	Total                       1 way
+2 Steps	1,1 or 2	Total               2 ways
+3 Steps	1,1,1 or 1,2 or 2,1	Total     3 ways
+4 Steps	1,1,1,1 or 1,1,2 or 1,2,1 or 2,1,1 or 2,2	Total 5 ways
+5 Steps	1,1,1,1,1 or 1,1,1,2 or 1,1,2,1 or 1,2,1,1 or 1,2,2 or 2,2,1 or 2,1,2 or 2,1,1,1	Total 8 ways
+6 Steps	1,1,1,1,1,1 or 1,1,1,1,2 or 1,1,1,2,1 or 1,1,2,1,1 or 1,2,1,1,1 or 1,1,2,2 or 1,2,2,1 or 2,1,1,2 or 2,1,2,1 or 2,2,1,1 or 2,2,2 or 2,1,1,1,1 or 1,2,1,2	Total 13 ways
+etc.	 	 
+The tricky pattern to spot is that each total on the right is the sum of the previous two totals.
+
+Peter pointed out that this can be expressed simply as an algerbaic relation. He used the notation Sn to mean the total number of ways of descending n steps.
+
+Then the formula is
+ 
+Sn=Sn−1+Sn−2
+
+So, since S1=1 and S2=2, that means S3=3, S4=5, S5=8, S6=13, S7=21, S8=34, S9=55, S10=89, S11=144, and S12=233.
+
+The number of ways to get to the 12th step is 233.
+
+The reason for this pattern is very simple. For the first step Liam has two choices:
+
+i) Jump down 1 step. This leaves n-1 steps.
+ii) Jump down 2 steps. This leaves n-2 steps.
+
+So if you know that Liam has Sn−1 ways of going down n-1 steps, and also Sn−2 ways of going down n-2 steps, all of these, when combined with the right choice of first step, give a way of going down n steps. This sum is exactly the relation Sn=Sn−1+Sn−2.
+
+Congratulations to everyone who managed to spot this pattern and find this answer. Those of you who have heard of the Fibonacci numbers will notice that the totals are the Fibonacci sequence, starting at 1, 2, ...
+
+In fact there is a formula for finding any Fibonnaci number without having to add up all the previous ones. You might like to try and find out what it is. This would make counting the total number of ways of jumping down 1000000 steps much easier, but you'll probably never need to jump down that many steps.
+
+Another interesting detail is that there are many number sequences that follow the pattern Sn=Sn−1+Sn−2. The Lucas numbers are an example. Can you see that if you specify the first two numbers, all the rest of the sequence is given without any more choice? What about if you are told only the first number, how many possible sequences with this addition property are there?
+
+There is another reasonably quick and easy way to find the answer 233 if you're confident with combinations and binomial coefficients. These are some stage 5 topics that you can read about in this article. Matias sent in his idea:
+
+First of all I broke down all the different ways of down 12 stairs:
+Always jump one step at a time
+Jump two steps 1 time, and one step 10 times
+Jump two steps 2 times, and one step 8 times
+Jump two steps 3 times, and one step 6 times
+Jump two steps 4 times, and one step 4 times
+Jump two steps 5 times, and one step 2 times
+Always jump two steps at a time
+
+Matias then used binomial coefficients. These strange and useful numbers have a special notation and formula, explained in more detail in the article.
+
+(nr) means 'the number of ways of choosing r objects from a total of n' where the order of the choices doesn't matter. It's said 'n choose r'
+
+For example (42)=6 because from the numbers 1, 2, 3, 4 I can make six pairs:
+12, 13, 14, 23, 24, 34 (remember we consider 34 the same as 43)
+
+The formula for the binomial coefficients uses the factorial notation n!=n×(n−1)×(n−2)×...×2×1 and is
+
+(nr)=n!r!(n−r)!
+
+
+So the factorials on the right give a formula for 'n choose r'.
+
+This can be linked to jumping down stairs because Liam can decide where to put his two-step jumps. If there are n total jumps, and exactly r of them are two-step, then there are (nr) possible ways of making the jumps. We have to 'choose' r different places out of the n steps to put the double jumps.
+
+For the item 1 there's 1 possibility
+For the item 2 there are 11 possibilities because this is 11 choose 1
+For the item 3 there are 45 possibilities because this is 10 choose 2
+For the item 4 there are 84 possibilities because this is 9 choose 3
+For the item 5 there are 70 possibilities because this is 8 choose 4
+For the item 6 there are 21 possibilities because this is 7 choose 5
+For the item 7 there are 1 possibility
+
+Total of the possibilities will be: 1+11+45+84+70+21+1 = 233
+Final result = 233 possibilities.
+
+Brilliant work everyone. This was a problem which can involve some sophisticated and difficult maths!
