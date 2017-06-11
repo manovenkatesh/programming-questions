@@ -1,0 +1,60 @@
+Expand Alphabets
+
+A string S is passed as input. S will contain multiple integer values followed by an alphabet. The program must expand the alphabets based on the previous integer value.
+
+Input Format:
+The first line contains S.
+
+Output Format:
+The first line contains the expanded string value.
+
+Boundary Conditions:
+Length of S is from 2 to 100.
+
+Example Input/Output 1:
+Input:
+4a5h
+
+Output:
+aaaahhhhh
+
+Explanation:
+As it is 4a and 5h, four a's are printed followed by 5 h's
+
+Example Input/Output 2:
+Input:
+1k2b4k
+
+Output:
+kbbkkkk
+
+sol:
+
+#include<iostream>
+#include<cmath>
+using namespace std;
+int main()
+{
+    string s;
+    cin>>s;
+    char c;
+    int l=s.length(),i,j;
+    for(i=0;i<l;i++){
+        if(isdigit(s[i])){
+          int k=0,val=0;
+            while(isdigit(s[i])){
+                int digit=s[i]-'0';
+                val=(val*10)+digit;
+                k++;
+                i++;
+            }
+            c=s[i];
+            for(int j=0;j<val;j++){
+                cout<<c;
+            }
+        }
+        
+    }
+    return 0;
+
+}
