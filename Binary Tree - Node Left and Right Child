@@ -1,0 +1,116 @@
+Binary Tree - Node Left and Right Child
+
+An array of N positive integers is passed as input. The program must form a binary tree with these numbers. The first number (out of the N numbers passed as input) is the root node of the binary tree.
+Then a number P which is present in these N numbers is passed as the input. The program must print the immediate left and right child values of the node belonging to P, with the values separated by a space.
+
+Note: If the load is a leaf node then print -1. Else if only left or only right child is present, then print only the child that is present.
+
+Input Format:
+The first line contains N numbers, each separated by a space.
+The second line contains P
+
+Output Format:
+The first line contains the values of left and right child separated by a space (or only left or right child value)
+
+Boundary Conditions:
+1 <= N <= 9999
+
+Example Input/Output 1:
+Input:
+1 2 5 3 6 4
+5
+
+Output:
+3 6
+
+Example Input/Output 2:
+Input:
+1 2 5 3 6 4
+6
+
+Output:
+-1
+
+Example Input/Output 3:
+Input:
+1 2 5 3 6 4
+2
+
+Output:
+5
+
+sol:
+
+#include <iostream>
+ 
+using namespace std;
+struct node{
+    int data;
+    node* left;
+    node* right;
+};
+node* getnew(int data){
+    node* temp=new node();
+    temp->data=data;
+    temp->left=temp->right=NULL;
+    return temp;
+}
+node* insert(node* root,int data){
+    if(root==NULL){
+        node* temp=getnew(data);
+        root=temp;
+        //cout<<data<<" data inserted "<<endl;
+        return root;
+    }
+ 
+        node* temp=root;
+        if(temp->data >= data){
+            //cout<<data<<" is less than that of "<<temp->data<<"left traverse"<<endl;
+            temp->left=insert(temp->left,data);
+            
+        }
+        else {
+            //cout<<data<<" is greater than that of "<<temp->data<<"right traverse"<<endl;
+            temp->right=insert(temp->right,data);
+        }
+    return root;
+}
+void nextadjacent(node* root,int data){
+    node* temp=root;
+    if(temp!=NULL && temp->data==data){
+        int count=0;
+        if(temp->left != NULL){
+            cout<<temp->left->data<<" ";
+            count++;
+        }
+       if(temp->right!=NULL){
+            cout<<temp->right->data<<" ";
+            count++;
+        }
+        if(count==0){
+            cout<<"-1";
+        }
+        return;
+    }
+    if(temp!=NULL && temp->data > data){
+        nextadjacent(temp->left,data);
+    }
+    else if(temp!=NULL && temp->data<data){
+        nextadjacent(temp->right,data);
+    }
+    return;
+}
+
+int main(int argc, char** argv)
+{
+    int d,find;
+    char c='a';
+    node* root;
+    while(c!='\n'){
+        scanf("%d%c",&d,&c);
+        root=insert(root,d);
+    }
+    cin>>find;
+    nextadjacent(root,find);
+    return 0;
+}
