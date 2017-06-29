@@ -1,0 +1,182 @@
+Doubly Linked List - Insert First & Append
+
+To improve communication skills, each student in a class has to talk about a given topic for 3 minutes. The class teacher allowed each student to give their preference either to speak in the pre-lunch session or in the post lunch session.
+
+A student X who has opted for pre-lunch session will be registered as the first person at that point of time. X will be pushed back only if another student Y opts for pre-lunch session.  
+
+A student M who has opted for post-lunch session will be registered as the last person at that point of time. M will be pushed front only if another student N opts for post-lunch session.
+
+The program given below aims to print the final order of the students combining pre-lunch and post-lunch sessions using a Doubly Linked List both in the FORWARD and REVERSE direction. Implement the methods insertFirst and append to complete the program.
+
+Note: pre-lunch session is denoted by f. Any other value denotes post-lunch session.
+Input Format:
+The first line contains the value of N which represents the number of students.
+Next N lines contain student idenfitication number, the student name and the session, separated by a space.
+
+Output Format:
+N lines containing the id and name of the students separated by a space denoting the order in which they will be speaking.
+
+Boundary Conditions:
+2 <= N <= 100
+Length of the student name is from 3 to 100
+
+Example Input/Output 1:
+Input:
+10
+91 Indumathi f
+12 Bhavana l
+99 Dhanish l
+51 Janakiraman f
+14 Karthik l
+11 Eugene f
+23 Arun l
+3 Fathima l
+84 Hanumanthappa f
+37 Celine f
+
+Output:
+FORWARD DIRECTION
+37 Celine
+84 Hanumanthappa
+11 Eugene
+51 Janakiraman
+91 Indumathi
+12 Bhavana
+99 Dhanish
+14 Karthik
+23 Arun
+3 Fathima
+REVERSE DIRECTION
+3 Fathima
+23 Arun
+14 Karthik
+99 Dhanish
+12 Bhavana
+91 Indumathi
+51 Janakiraman
+11 Eugene
+84 Hanumanthappa
+37 Celine
+
+sol:
+
+#include<stdio.h>
+#include <stdlib.h>
+#include<string.h>
+ 
+#define MAXLENGTH 101
+ 
+struct Student
+{
+    int id;
+    char *name;
+    struct Student *prev;
+    struct Student *next;
+};
+ 
+struct Student *head;
+struct Student *tail;
+
+//head=NULL;
+//tail=NULL;
+int m=0;
+void insertFirst(int id,char s[MAXLENGTH]){
+    if(m==0){
+        head=NULL;
+        tail=NULL;
+        m++;
+    }
+    struct Student* temp=(struct Student*)malloc(sizeof(struct Student));
+    temp->id=id;
+    int n=strlen(s),i=0;
+    temp->name=(char*)malloc(sizeof(char)*n);
+    while(s[i]!='\0'){
+        temp->name[i]=s[i];
+        i++;
+    }
+    temp->next=head;
+    if(head!=NULL)
+        head->prev=temp;
+    if(tail==NULL){
+        tail=temp;
+    }
+    //printf("%d %s",temp->id,temp->name);
+    head=temp;
+    return;
+}
+void append(int id,char s[MAXLENGTH]){
+    if(m==0){
+        head=NULL;
+        tail=NULL;
+        m++;
+    }
+        struct Student* temp=(struct Student*)malloc(sizeof(struct Student));
+        temp->id=id;
+        int n=strlen(s),i=0;
+        temp->name=(char*)malloc(sizeof(char)*n);
+        while(s[i]!='\0'){
+            temp->name[i]=s[i];
+            i++;
+        }
+        temp->next=NULL;
+        temp->prev=tail;
+        if(tail!=NULL)
+           tail->next=temp;
+        if(head==NULL){
+            head=temp;
+        }
+        tail=temp;
+        return;
+        
+}
+void display()
+{
+    struct Student *displaynode = head;
+    while(displaynode != NULL)
+    {
+        printf("%d %s\n",displaynode->id, displaynode->name);
+        displaynode = displaynode->next;
+    }
+}
+ 
+void displayReverse()
+{
+    struct Student *displaynode=tail;
+ 
+    while(displaynode != NULL)
+    {
+        printf("%d %s\n",displaynode->id, displaynode->name);
+        displaynode = displaynode->prev;
+    }
+ 
+}
+ 
+ 
+ 
+int main()
+{
+    int N;
+    scanf("%d",&N);
+ 
+    char positionToAdd[2];
+    int id;
+    char name[MAXLENGTH];
+ 
+    while(N-- > 0)
+    {
+        scanf("%d %s %s",&id,name,positionToAdd);
+        if(strcmp(positionToAdd,"f") == 0)
+        {
+            insertFirst(id,name);
+        }
+        else
+        {
+            append(id,name);
+        }
+ 
+    }
+    printf("FORWARD DIRECTION\n");
+    display();
+    printf("REVERSE DIRECTION\n");
+    displayReverse();
+}
